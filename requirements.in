@@ -1,0 +1,6 @@
+python-telegram-bot[ext]
+python-dotenv
+pyrogram
+tgcrypto
+uvloop
+openai
