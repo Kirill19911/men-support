@@ -112,7 +112,7 @@ async def stop_support(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 
 def main() -> None:
     """Run bot."""
-    # Create the Application and pass it your bot's token.
+    # Create the Application and pass  bot's token.
     application = Application.builder().token(TELEGRAM_API_KEY).build()
 
     # on different commands - answer in Telegram
