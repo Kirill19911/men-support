@@ -11,11 +11,11 @@ from .support_bot import SupportBot
 load_dotenv()
 uvloop.install()
 
-TELEGRAM_STRING_SESSION = os.environ.get("TELEGRAM_STRING_SESSION")
-TELEGRAM_API_KEY = os.environ.get("TELEGRAM_API_KEY")
-USER_APP_ID = os.environ.get("USER_APP_ID")
-USER_APP_HASH = os.environ.get("USER_APP_HASH")
-USER_ACCOUNT_NAME = os.environ.get("USER_ACCOUNT_NAME")
+TELEGRAM_STRING_SESSION = os.environ["TELEGRAM_STRING_SESSION"]
+TELEGRAM_API_KEY = os.environ["TELEGRAM_API_KEY"]
+USER_APP_ID = os.environ["USER_APP_ID"]
+USER_APP_HASH = os.environ["USER_APP_HASH"]
+USER_ACCOUNT_NAME = os.environ["USER_ACCOUNT_NAME"]
 
 
 async def main() -> None:

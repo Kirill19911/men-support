@@ -34,10 +34,11 @@ HANDLED_SIGNALS = (
     signal.SIGINT,  # Unix signal 2. Sent by Ctrl+C.
     signal.SIGTERM,  # Unix signal 15. Sent by `kill <pid>`.
 )
-CHAT_ID = int(os.environ.get("CHAT_ID"))
-SUPPORT_BOT_ID = os.environ.get("SUPPORT_BOT_ID")
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
-LIST_OF_ADJECTIVES = json.loads(os.environ.get("LIST_OF_ADJECTIVES"))
+CHAT_IDS_STR = json.loads(os.environ["CHAT_IDS"])
+CHAT_IDS_INT = list(map(int, CHAT_IDS_STR))
+SUPPORT_BOT_ID = os.environ["SUPPORT_BOT_ID"]
+OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
+LIST_OF_ADJECTIVES = json.loads(os.environ["LIST_OF_ADJECTIVES"])
 
 # Set up logging configuration
 logging.basicConfig(level=logging.INFO)
@@ -148,7 +149,7 @@ class SupportBot:
     async def start_support_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         # Handler for the "/start_support" command
         chat_id = update.message.chat.id
-        if not chat_id == CHAT_ID:
+        if chat_id not in CHAT_IDS_INT:
             await update.message.reply_text("Сори бро/сис, можно запускать только в особенном чате.")
             return
 
@@ -280,7 +281,7 @@ async def remove_job_if_exists(name: str, context: ContextTypes.DEFAULT_TYPE) ->
     return True
 
 
-def form_aimessages_body(prompt: str, model: str = "gpt-3.5-turbo", temperature: float = 0.6) -> dict:
+def form_aimessages_body(prompt: str, model: str = "gpt-3.5-turbo", temperature: float = 0.8) -> dict:
     messages = [{"role": "user", "content": prompt}]
     message_body = {"messages": messages, "temperature": temperature, "model": model}
     return message_body
@@ -288,7 +289,7 @@ def form_aimessages_body(prompt: str, model: str = "gpt-3.5-turbo", temperature:
 
 def form_ai_men_prompt(username: str, list_of_adjectives: list) -> str:
     first_adj, second_adj, third_adj = random.sample(list_of_adjectives, k=3)
-    prompt = f"Опиши  @{username} по прилагательным {first_adj}, {second_adj}, {third_adj} в четырёх предложениях, упоминая @{username} один раз за весь текст."
+    prompt = f"Опиши парня @{username} по прилагательным {first_adj}, {second_adj}, {third_adj} в четырёх предложениях, упоминая @{username} один раз за весь текст."
     return prompt
 
 
