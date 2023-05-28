@@ -157,7 +157,7 @@ class SupportBot:
             await update.message.reply_text(
                 "Друг, мужской круг поддержки уже запущен в этом чате. Тыкать больше не надо."
             )
-
+            return
         time_to_send = datetime.now(tz=ZoneInfo("UTC")) + timedelta(seconds=5)
         await update.message.reply_text("Привет, круг мужской поддержки запущен. Братан, держись и держи мужиков.")
         context.job_queue.run_daily(
@@ -289,7 +289,7 @@ def form_aimessages_body(prompt: str, model: str = "gpt-3.5-turbo", temperature:
 
 def form_ai_men_prompt(username: str, list_of_adjectives: list) -> str:
     first_adj, second_adj, third_adj = random.sample(list_of_adjectives, k=3)
-    prompt = f"Опиши парня @{username} по прилагательным {first_adj}, {second_adj}, {third_adj} в четырёх предложениях, упоминая @{username} один раз за весь текст."
+    prompt = f"Опиши @{username} по прилагательным {first_adj}, {second_adj}, {third_adj} в четырёх предложениях, упоминая @{username} один раз за весь текст."
     return prompt
 
 
